@@ -1,4 +1,4 @@
-FROM casjaysdev/alpine:latest as stage
+FROM casjaysdevdocker/alpine:latest as stage
 
 RUN apk update && \
   apk add --no-cache \
@@ -21,12 +21,12 @@ ENV \
 LABEL \
   org.label-schema.name="alpine" \
   org.label-schema.description="Base Alpine Linux" \
-  org.label-schema.url="https://github.com/casjaysdev/alpine" \
-  org.label-schema.vcs-url="https://github.com/casjaysdev/alpine" \
+  org.label-schema.url="https://hub.docker.com/r/casjaysdevdocker/alpine" \
+  org.label-schema.vcs-url="https://github.com/casjaysdevdocker/alpine" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.version=$BUILD_DATE \
   org.label-schema.vcs-ref=$BUILD_DATE \
-  org.label-schema.license="MIT" \
+  org.label-schema.license="WTFPL" \
   org.label-schema.vcs-type="Git" \
   org.label-schema.schema-version="latest" \
   org.label-schema.vendor="CasjaysDev" \
