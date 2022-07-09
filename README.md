@@ -25,7 +25,7 @@ casjaysdev/xfce4:latest
 version: "2"
 services:
   xfce4:
-    image: casjaysdev/xfce4
+    image: casjaysdevdocker/xfce4
     container_name: xfce4
     environment:
       - TZ=America/New_York
