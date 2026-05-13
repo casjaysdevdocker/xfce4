@@ -1,44 +1,79 @@
-# 👋 xfce4 Readme 👋
+## 👋 Welcome to xfce4 🚀  
 
-xfce4 README
-
-## Run container
-
-### via command line
+xfce4 README  
+  
+  
+## Install my system scripts  
 
 ```shell
+ sudo bash -c "$(curl -q -LSsf "https://github.com/systemmgr/installer/raw/main/install.sh")"
+ sudo systemmgr --config && sudo systemmgr install scripts  
+```
+  
+## Automatic install/update  
+  
+```shell
+dockermgr update xfce4
+```
+  
+## Install and run container
+  
+```shell
+dockerHome="/var/lib/srv/$USER/docker/casjaysdevdocker/xfce4/xfce4/latest/rootfs"
+mkdir -p "/var/lib/srv/$USER/docker/xfce4/rootfs"
+git clone "https://github.com/dockermgr/xfce4" "$HOME/.local/share/CasjaysDev/dockermgr/xfce4"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/xfce4/rootfs/." "$dockerHome/"
 docker run -d \
 --restart always \
---name xfce4 \
---net=host \
--e HOSTNAME=xfce4 \
+--privileged \
+--name casjaysdevdocker-xfce4-latest \
+--hostname xfce4 \
 -e TZ=${TIMEZONE:-America/New_York} \
--e DISPLAY=$DISPLAY \
--v $HOME/.Xauthority:/root/.Xauthority \
--v /tmp/.X11-unix:/tmp/.X11-unix \
-casjaysdev/xfce4:latest
+-v "$dockerHome/data:/data:z" \
+-v "$dockerHome/config:/config:z" \
+-p 80:80 \
+casjaysdevdocker/xfce4:latest
 ```
-
-### via docker-compose
-
+  
+## via docker-compose  
+  
 ```yaml
 version: "2"
 services:
-  xfce4:
+  ProjectName:
     image: casjaysdevdocker/xfce4
-    container_name: xfce4
+    container_name: casjaysdevdocker-xfce4
     environment:
       - TZ=America/New_York
       - HOSTNAME=xfce4
     volumes:
-      - $HOME/.local/share/docker/storage/xfce4/data:/data
-      - $HOME/.local/share/docker/storage/xfce4/config:/config
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/xfce4/xfce4/latest/rootfs/data:/data:z"
+      - "/var/lib/srv/$USER/docker/casjaysdevdocker/xfce4/xfce4/latest/rootfs/config:/config:z"
     ports:
       - 80:80
     restart: always
 ```
-
+  
+## Get source files  
+  
+```shell
+dockermgr download src casjaysdevdocker/xfce4
+```
+  
+OR
+  
+```shell
+git clone "https://github.com/casjaysdevdocker/xfce4" "$HOME/Projects/github/casjaysdevdocker/xfce4"
+```
+  
+## Build container  
+  
+```shell
+cd "$HOME/Projects/github/casjaysdevdocker/xfce4"
+buildx 
+```
+  
 ## Authors  
-
-🤖 Casjay: [Github](https://github.com/casjay) [Docker](https://hub.docker.com/casjay) 🤖  
-⛵ CasjaysDev: [Github](https://github.com/casjaysdev) [Docker](https://hub.docker.com/casjaysdev) ⛵  
+  
+🤖 casjay: [Github](https://github.com/casjay) 🤖  
+⛵ casjaysdevdocker: [Github](https://github.com/casjaysdevdocker) [Docker](https://hub.docker.com/u/casjaysdevdocker) ⛵  
